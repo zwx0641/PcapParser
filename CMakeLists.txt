@@ -1,11 +1,13 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.20.0)
 
-project(futuremade)
+project(PcapParser)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 
 set(CMAKE_CXX_STANDARD 20)
-set(Deps "/home/zwx0641/thirdparty-libs")
-set(INCS ${Deps}/include)
-set(LIBS ${Deps}/lib)
+set(INCS include include/simba)
+file(GLOB SRC src/*.cpp)
 
-add_subdirectory(src)
+include_directories(${INCS})
+
+add_executable(PcapParser ${SRC})

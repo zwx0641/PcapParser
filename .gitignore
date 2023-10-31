@@ -1,9 +1,9 @@
-# Xmake cache
-.xmake/
 build/
 
 # MacOS Cache
 .DS_Store
 
-.cache
-.vs_code
+.cache/
+.vs_code/
+
+*.pcap

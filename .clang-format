@@ -1,0 +1,12 @@
+---
+BasedOnStyle: LLVM
+AlignAfterOpenBracket: Align
+IndentWidth: '4'
+PointerAlignment: Left
+SortIncludes: 'true'
+SpaceAfterTemplateKeyword: 'true'
+SpaceBeforeAssignmentOperators: 'true'
+SpaceBeforeCpp11BracedList: 'true'
+SpaceBeforeRangeBasedForLoopColon: 'true'
+SpaceInEmptyParentheses: 'false'
+
