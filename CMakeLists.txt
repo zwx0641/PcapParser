@@ -5,7 +5,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 
 set(CMAKE_CXX_STANDARD 20)
-set(INCS include include/simba)
+set(INCS include include/Simba)
 file(GLOB SRC src/*.cpp)
 
 include_directories(${INCS})
