@@ -3,13 +3,15 @@
 #include <cstring>
 #include <optional>
 
-namespace Simba {
+namespace Simba
+{
 
-template<typename SimbaType>
-static inline std::optional<SimbaType> cast(const char* data, const size_t dataSize) {
+template <typename SimbaType> static inline std::optional<SimbaType> cast(const char *data, const size_t dataSize)
+{
     SimbaType msg;
 
-    if (dataSize < sizeof(SimbaType)) {
+    if (dataSize < sizeof(SimbaType))
+    {
         return {};
     }
 
@@ -17,4 +19,4 @@ static inline std::optional<SimbaType> cast(const char* data, const size_t dataS
     return msg;
 }
 
-}
+} // namespace Simba

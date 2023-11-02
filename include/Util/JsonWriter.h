@@ -1,37 +1,42 @@
 #pragma once
 
 #include <fstream>
+#include <iostream>
 #include <stdexcept>
 #include <string_view>
-#include <iostream>
 #include <typeinfo>
 
-namespace Util {
+namespace Util
+{
 
-class JsonWriter {
+class JsonWriter
+{
 
-public:
+  public:
     JsonWriter() = default;
 
-    JsonWriter(const std::string_view jsonPath) {
+    JsonWriter(const std::string_view jsonPath)
+    {
         json_.open(jsonPath.data(), std::ios::out);
 
-        if (!json_.is_open()) {
+        if (!json_.is_open())
+        {
             throw std::runtime_error("Unable to open output file");
         }
     }
 
-    ~JsonWriter() {
+    ~JsonWriter()
+    {
         json_.close();
     }
 
-    void write(const std::string& output) {
+    void write(const std::string &output)
+    {
         json_.write(output.c_str(), output.size());
     }
 
-private:
-
+  private:
     std::ofstream json_;
 };
 
-}
+} // namespace Util

@@ -3,62 +3,71 @@
 #include <fstream>
 #include <stdexcept>
 
-namespace Pcap {
+namespace Pcap
+{
 
-class PcapFile {
+class PcapFile
+{
 
-public:
-
-    PcapFile(const std::string_view filePath) {
+  public:
+    PcapFile(const std::string_view filePath)
+    {
         file_.open(filePath.data(), std::ios::in | std::ios::binary);
 
-        if (!file_.is_open()) {
+        if (!file_.is_open())
+        {
             throw std::runtime_error("Failed to open file");
         }
     }
 
-    const bool eof() {
+    const bool eof()
+    {
         return file_.eof();
     }
 
-    size_t read(void* s, const size_t size) {
-        return file_.read(reinterpret_cast<char*>(s), size).gcount();
+    size_t read(void *s, const size_t size)
+    {
+        return file_.read(reinterpret_cast<char *>(s), size).gcount();
     }
 
-    ~PcapFile() {
+    ~PcapFile()
+    {
         file_.close();
     }
 
-private:
-
+  private:
     std::ifstream file_;
-
 };
 
-class Packet {
+class Packet
+{
 
-public:
+  public:
     Packet() = default;
 
-    Packet(const char* data, const size_t size) : data_(data), size_(size) {}
+    Packet(const char *data, const size_t size) : data_(data), size_(size)
+    {
+    }
 
-    const char* data() const {
+    const char *data() const
+    {
         return data_;
     }
 
-    size_t size() const {
+    size_t size() const
+    {
         return size_;
     }
 
-    const bool valid() {
+    const bool valid()
+    {
         return data_ != nullptr;
     }
 
-private:
-
-    const char* data_{nullptr};
+  private:
+    const char *data_{nullptr};
 
     size_t size_{0};
 };
 
-};
+}; // namespace Pcap

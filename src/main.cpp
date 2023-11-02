@@ -3,8 +3,10 @@
 #include "Util/UDP.h"
 
 #include "Util/JsonWriter.h"
-int main(int argc, char** argv) {
-    if (argc != 3) {
+int main(int argc, char **argv)
+{
+    if (argc != 3)
+    {
         std::cout << "Missing file path or write path" << std::endl;
         return 0;
     }
@@ -13,15 +15,18 @@ int main(int argc, char** argv) {
 
     PcapParser parser(argv[1], argv[2]);
 
-    while (1) {
+    while (1)
+    {
         auto packet = parser.parsePcap();
 
-        if (!packet.valid()) {
+        if (!packet.valid())
+        {
             break;
         }
 
         Pcap::Network::UDP udp{packet};
-        if (!udp.valid()) {
+        if (!udp.valid())
+        {
             continue;
         }
 

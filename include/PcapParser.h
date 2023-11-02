@@ -2,19 +2,22 @@
 
 #include <vector>
 
-#include "PcapHeader.h"
 #include "Pcap.h"
-#include "Util/UDP.h"
-#include "Util/JsonWriter.h"
+#include "PcapHeader.h"
 #include "Simba/Messages.h"
 #include "Simba/SimbaCast.h"
+#include "Util/JsonWriter.h"
+#include "Util/UDP.h"
 
-namespace Pcap {
+namespace Pcap
+{
 
-class PcapParser {
-public:
+class PcapParser
+{
+  public:
     PcapParser(const std::string_view filePath, const std::string_view writePath)
-        : validFile_(true), pcap_(filePath), json_(writePath) {
+        : validFile_(true), pcap_(filePath), json_(writePath)
+    {
         parseGlobHeader();
     };
 
@@ -24,11 +27,14 @@ public:
 
     void parseGlobHeader();
 
-    void applySimba(const Network::UDP& udp);
+    void applySimba(const Network::UDP &udp);
 
-    [[nodiscard]] const bool valid_file() { return validFile_; };
+    [[nodiscard]] const bool valid_file()
+    {
+        return validFile_;
+    };
 
-private:
+  private:
     PcapFile pcap_;
 
     bool validFile_;
@@ -38,4 +44,4 @@ private:
     Util::JsonWriter json_;
 };
 
-}
+} // namespace Pcap

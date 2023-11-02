@@ -4,12 +4,15 @@
 
 #include "Pcap.h"
 
-namespace Pcap::Network {
+namespace Pcap::Network
+{
 
 static constexpr uint8_t UDP_PROTOCOL = 17;
 
-struct MACHeader {
-    enum : uint16_t {
+struct MACHeader
+{
+    enum : uint16_t
+    {
         ip = 0x0800,
         vlan = 0x8100
     };
@@ -20,9 +23,10 @@ struct MACHeader {
     // 14
 };
 
-struct IPHeader {
-    uint ihl:4;
-    uint version:4;
+struct IPHeader
+{
+    uint ihl : 4;
+    uint version : 4;
     uint8_t typeOfService;
     uint16_t totalLen;
     uint16_t identification;
@@ -35,7 +39,8 @@ struct IPHeader {
     // 20
 };
 
-struct UDPHeader {
+struct UDPHeader
+{
     uint16_t srcPort;
     uint16_t destPort;
     uint16_t length;
@@ -43,64 +48,73 @@ struct UDPHeader {
     // 8
 };
 
-class UDP {
+class UDP
+{
 
-public:
+  public:
     UDP() = default;
 
-    ~UDP() {
+    ~UDP()
+    {
     }
 
-    UDP(const Packet& packet) {
+    UDP(const Packet &packet)
+    {
         size_t offset = 0;
-        const MACHeader* mac = reinterpret_cast<const MACHeader*>(packet.data() + offset);
+        const MACHeader *mac = reinterpret_cast<const MACHeader *>(packet.data() + offset);
         offset += sizeof(MACHeader);
 
-        if (packet.size() < offset + sizeof(IPHeader)) {
+        if (packet.size() < offset + sizeof(IPHeader))
+        {
             std::cout << "Packet size not enough to get ip header" << std::endl;
             return;
         }
 
-        ip_ = reinterpret_cast<const IPHeader*>(packet.data() + offset);
-        if (ip_->protocol != UDP_PROTOCOL) {
+        ip_ = reinterpret_cast<const IPHeader *>(packet.data() + offset);
+        if (ip_->protocol != UDP_PROTOCOL)
+        {
             std::cout << "Not supported protocol" << std::endl;
             return;
         }
 
         offset += sizeof(IPHeader);
 
-        if (packet.size() < offset + sizeof(UDPHeader)) {
+        if (packet.size() < offset + sizeof(UDPHeader))
+        {
             std::cout << "Packet size not enough to get udp header" << std::endl;
             return;
         }
 
-        udp_ = reinterpret_cast<const UDPHeader*>(packet.data() + offset);
+        udp_ = reinterpret_cast<const UDPHeader *>(packet.data() + offset);
         offset += sizeof(UDPHeader);
 
         data_ = packet.data() + offset;
         size_ = packet.size() - offset;
     };
 
-    const bool valid() {
+    const bool valid()
+    {
         return data_ != nullptr;
     }
 
-    [[nodiscard]] const char* data() const {
+    [[nodiscard]] const char *data() const
+    {
         return data_;
     }
 
-    const size_t dataSize() const {
+    const size_t dataSize() const
+    {
         return size_;
     };
 
-private:
-    const IPHeader* ip_{nullptr};
+  private:
+    const IPHeader *ip_{nullptr};
 
-    const UDPHeader* udp_{nullptr};
+    const UDPHeader *udp_{nullptr};
 
-    const char* data_{nullptr};
+    const char *data_{nullptr};
 
     size_t size_{0};
 };
 
-}
+} // namespace Pcap::Network
