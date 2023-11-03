@@ -4,7 +4,6 @@
 #include <iostream>
 #include <stdexcept>
 #include <string_view>
-#include <typeinfo>
 
 namespace Util
 {
